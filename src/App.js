@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Cards, Chart, Selector } from "./components";
-import { Button } from "antd";
 import styles from "./App.module.css";
 import "./App.css";
 
@@ -13,15 +11,15 @@ function App() {
     newConfirmed: 0,
     newDeaths: 0,
     newRecoverd: 0,
+    countries: [{}],
   });
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchSummaryData() {
       const url = "https://api.covid19api.com/summary";
       await fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           const computedData = {
             confirmed: data.Global.TotalConfirmed,
             deaths: data.Global.TotalDeaths,
@@ -29,19 +27,19 @@ function App() {
             newConfirmed: data.Global.NewConfirmed,
             newDeaths: data.Global.NewDeaths,
             newRecovered: data.Global.NewRecovered,
+            countries: data.Countries,
           };
           setData(computedData);
         });
     }
-
-    fetchData();
+    fetchSummaryData();
   }, []);
   return (
     <div className={styles.container}>
       <header className={styles.container}>
         <Cards data={data} />
-        <Selector />
-        <Chart />
+        <Selector data={data} />
+        {/* <Chart data={data}/> */}
       </header>
     </div>
   );

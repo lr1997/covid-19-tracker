@@ -3,12 +3,11 @@ import { Card, Row, Col } from "antd";
 // import styles from "./Cards.module.css";
 
 const Cards = (props) => {
-  useEffect(() => {
-    console.log("props");
-
-    console.log(props.data);
-    console.log("props");
-  });
+  // useEffect(() => {
+  //   console.log("Card");
+  //   console.log(props.data);
+  //   console.log("Card");
+  // });
   return (
     <>
       <Row gutter={16}>
